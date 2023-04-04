@@ -1,4 +1,4 @@
 *.dart linguist-detectable=true
 *.html linguist-detectable=false
 *.swift linguist-detectable=false
-*.cplusplus linguist-detectable=false
+*.c++ linguist-detectable=false
