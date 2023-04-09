@@ -129,42 +129,49 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: SinifBilgisi(
-        sinif: sinif,
-        baslik: baslik,
-        ogrenciler: ogrenciler,
-        yeniOgrenciEkle: yeniOgrenciEkle,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            //ArkaPlan(),
-            Positioned(
-                top: 10,
-                right: 10,
+      body: DefaultTextStyle(
+        style: TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
+        child: SinifBilgisi(
+          sinif: sinif,
+          baslik: baslik,
+          ogrenciler: ogrenciler,
+          yeniOgrenciEkle: yeniOgrenciEkle,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              ArkaPlan(),
+              Positioned(
+                  top: 10,
+                  right: 10,
+                  left: 10,
+                  bottom: 90,
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    print('constraints.maxWidth: ${constraints.maxWidth}');
+                    if (constraints.maxWidth > 450) {
+                      return Row(
+                        children: [
+                          Sinif(),
+                          Expanded(
+                              child: Text('Seçili olan öğrencinin detayları.')),
+                        ],
+                      );
+                    } else {
+                      return Sinif();
+                    }
+                  })),
+              Positioned(
+                //yön belirtip yanında oradan ne kadar uzak olacağını seçiyoruz.
+                bottom: 20,
                 left: 10,
-                bottom: 90,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  print('constraints.maxWidth: ${constraints.maxWidth}');
-                  if (constraints.maxWidth > 450) {
-                    return Row(
-                      children: [
-                        Sinif(),
-                        Expanded(
-                            child: Text('Seçili olan öğrencinin detayları.')),
-                      ],
-                    );
-                  } else {
-                    return Sinif();
-                  }
-                })),
-            Positioned(
-              //yön belirtip yanında oradan ne kadar uzak olacağını seçiyoruz.
-              bottom: 20,
-              left: 10,
-              right: 10,
-              child: OgrenciEkleme(),
-            ),
-          ],
+                right: 10,
+                child: OgrenciEkleme(),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -232,7 +239,11 @@ class Sinif extends StatelessWidget {
               ),
               Text(
                 '${sinifBilgisi.sinif}. Sınıf',
-                textScaleFactor: 2,
+                textScaleFactor: 1.3,
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 32,
+                ),
               ),
               Icon(
                 Icons.star,
@@ -243,16 +254,28 @@ class Sinif extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               sinifBilgisi.baslik,
-              textScaleFactor: 1.5,
+              textScaleFactor: 1,
             ),
           ),
           Expanded(child: SinifListesi()),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
+              minimumSize: Size(20, 20),
             ),
-            child: Text(
-                'Öğrencileri Yükle'
+            child: RichText(
+              text: TextSpan(
+                text: 'Öğrencileri ',
+                children: const <TextSpan>[
+                  TextSpan(
+                    text: 'Yükle',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ]
+              ),
+
             ),
             onPressed: () async {
              final ogrenciler = SinifBilgisi.of(context).ogrenciler;
@@ -268,8 +291,12 @@ class Sinif extends StatelessWidget {
              
             },
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 2),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepOrange,
+              minimumSize: Size(20, 20)
+            ),
             child: Text(
                 'Yeni sayfaya git.'
             ),
@@ -419,7 +446,11 @@ class SinifListesi extends StatelessWidget {
         return ListTile(
           key: ValueKey(index),
           leading: Icon(Icons.circle),
-          title:Text(sinifBilgisi.ogrenciler[index]),
+          title:Text(
+              sinifBilgisi.ogrenciler[index],
+              softWrap: false,
+              overflow: TextOverflow.fade,
+          ),
 
         );
       },
@@ -506,7 +537,7 @@ class ArkaPlan extends StatelessWidget {
                 //color: Colors.grey.shade800,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-                  child: Image.asset('images/homepage_img_8.png'),
+                  child: Image(image: AssetImage('images/homepage_img_8.png')),
                 ),
               ),
             ),
