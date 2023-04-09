@@ -75,6 +75,37 @@ class _MyHomePageState extends State<MyHomePage> {
     final desiredWidth = 300.0; //hangi boyuta göre tasarladıysak onu veriyoruz.
     final ratio = screenSize.width / desiredWidth; // oran buluyoruz
     return Scaffold(
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
@@ -84,6 +115,17 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.of(context).pushNamed('/settings');
             },
             icon: Icon(Icons.settings),
+          ),
+          TextButton(
+              child: Text(
+                  'merhaba',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            onPressed:() {
+              print('merhaba');
+            },
           ),
         ],
       ),
@@ -123,6 +165,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('merhaba');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('MERHABA!')),
+          );
+        },
+        child: Text('FAB'),
       ),
     );
   }
@@ -399,7 +450,7 @@ class _OgrenciEklemeState extends State<OgrenciEkleme> {
           },
         ),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.centerLeft,
           child: ElevatedButton(
               onPressed: controller.text.isNotEmpty
                   ? () {
