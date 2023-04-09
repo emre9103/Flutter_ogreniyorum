@@ -142,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 top: 45,
                 right: 10,
                 left: 10,
+                bottom: 0,
                 child: LayoutBuilder(builder: (context, constraints) {
                   print('constraints.maxWidth: ${constraints.maxWidth}');
                   if (constraints.maxWidth > 450) {
@@ -153,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     );
                   } else {
-                    return Sinif();
+                    return SingleChildScrollView(
+                        //child: Sinif()
+                    );
                   }
                 })),
             Positioned(
@@ -239,9 +242,12 @@ class Sinif extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            sinifBilgisi.baslik,
-            textScaleFactor: 1.5,
+           Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              sinifBilgisi.baslik,
+              textScaleFactor: 1.5,
+            ),
           ),
           SinifListesi(),
           ElevatedButton(
@@ -265,6 +271,7 @@ class Sinif extends StatelessWidget {
              
             },
           ),
+          SizedBox(height: 8),
           ElevatedButton(
             child: Text(
                 'Yeni sayfaya git.'
@@ -413,7 +420,13 @@ class SinifListesi extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final a in sinifBilgisi.ogrenciler) Text(a),
+        for (final a in sinifBilgisi.ogrenciler)
+          ...[
+            Text(a),
+            SizedBox(
+              height: 16,
+            ),
+      ],
       ],
     );
   }
@@ -475,11 +488,25 @@ class ArkaPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey.shade200,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-        child: Image.asset('images/homepage_img_8.png'),
+    return Align(
+      alignment: Alignment.center,
+      child: PhysicalModel(
+        color: Colors.red,
+        elevation: 20,
+        shadowColor: Colors.green,
+        child: FractionallySizedBox(
+          widthFactor: 0.75,
+          child: AspectRatio(
+           aspectRatio: 1,
+            child: Container(
+              color: Colors.grey.shade800,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+                child: Image.asset('images/homepage_img_8.png'),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
