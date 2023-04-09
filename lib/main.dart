@@ -491,18 +491,22 @@ class ArkaPlan extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: PhysicalModel(
-        color: Colors.red,
+        color: Colors.white,
         elevation: 20,
-        shadowColor: Colors.green,
-        child: FractionallySizedBox(
-          widthFactor: 0.75,
-          child: AspectRatio(
-           aspectRatio: 1,
-            child: Container(
-              color: Colors.grey.shade800,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-                child: Image.asset('images/homepage_img_8.png'),
+        shadowColor: Colors.red,
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+          child: FractionallySizedBox(
+            widthFactor: 0.75,
+            child: AspectRatio(
+             aspectRatio: 1,
+              child: Container(
+                //color: Colors.grey.shade800,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+                  child: Image.asset('images/homepage_img_8.png'),
+                ),
               ),
             ),
           ),
