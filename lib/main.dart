@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ornek/album.dart';
 import 'package:video_player/video_player.dart';
 
+import 'input_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -118,13 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TextButton(
               child: Text(
-                  'merhaba',
+                  'Input Page',
                 style: TextStyle(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             onPressed:() {
-              print('merhaba');
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => InputPage(),
+              ));
             },
           ),
         ],
