@@ -137,12 +137,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            ArkaPlan(),
+            //ArkaPlan(),
             Positioned(
-                top: 45,
+                top: 10,
                 right: 10,
                 left: 10,
-                bottom: 0,
+                bottom: 90,
                 child: LayoutBuilder(builder: (context, constraints) {
                   print('constraints.maxWidth: ${constraints.maxWidth}');
                   if (constraints.maxWidth > 450) {
@@ -154,9 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     );
                   } else {
-                    return SingleChildScrollView(
-                        //child: Sinif()
-                    );
+                    return Sinif();
                   }
                 })),
             Positioned(
@@ -221,7 +219,6 @@ class Sinif extends StatelessWidget {
   Widget build(BuildContext context) {
     final sinifBilgisi = SinifBilgisi.of(context);
     return Column(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -249,7 +246,7 @@ class Sinif extends StatelessWidget {
               textScaleFactor: 1.5,
             ),
           ),
-          SinifListesi(),
+          Expanded(child: SinifListesi()),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -417,17 +414,21 @@ class SinifListesi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sinifBilgisi = SinifBilgisi.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (final a in sinifBilgisi.ogrenciler)
-          ...[
-            Text(a),
-            SizedBox(
-              height: 16,
-            ),
-      ],
-      ],
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        return ListTile(
+          key: ValueKey(index),
+          leading: Icon(Icons.circle),
+          title:Text(sinifBilgisi.ogrenciler[index]),
+
+        );
+      },
+      itemCount: sinifBilgisi.ogrenciler.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider(
+          color: Colors.black,
+        );
+      },
     );
   }
 }
